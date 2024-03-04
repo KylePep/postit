@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Login from "./Login";
-import {getSession} from 'next-auth/react'
 import {authOptions} from '../../pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth";
 import Logged from "./Logged";
