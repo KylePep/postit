@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
 
-      <body className={`mx-4 md:mx-48 xl:mx-96 ${roboto.variable} bg-gray-20`}>
+      <body className={`mx-4 md:mx-48 xl:mx-96 ${roboto.variable} bg-gray-300`}>
         <QueryWrapper>  
         <Nav/>
         <Toaster/>
