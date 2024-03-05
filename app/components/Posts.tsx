@@ -7,10 +7,11 @@ interface PostProps{
   avatar: string;
   name: string;
   postTitle: string;
+  Comment: [];
   id: string;
 }
 
-const Post: React.FC<PostProps> = ({ avatar, name, postTitle, id}) =>{
+const Post: React.FC<PostProps> = ({ avatar, name, postTitle, Comment, id}) =>{
 
   return(
     <div className="bg-white my-8 p-8 rounded-lg">
@@ -31,7 +32,7 @@ const Post: React.FC<PostProps> = ({ avatar, name, postTitle, id}) =>{
       </div>
       <div className="flex gap-4 cursor-pointer items-center">
         <Link href={`/post/${id}`}>
-          <p className="text-sm font-bold text-gray-700">Comment</p>
+          <p className="text-sm font-bold text-gray-700">{Comment?.length} Comment</p>
         </Link>
       </div>
     </div>
