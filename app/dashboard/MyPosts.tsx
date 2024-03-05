@@ -17,7 +17,7 @@ export default function MyPosts(){
   console.log(data)
   return(
     <div>
-      {data?.Post?.map((post)=><EditPost id="post.id" key={post.id} avatar={data.image} name={data.name} title={post.title} comments={post.comments}/>)}
+      {data?.Post?.map((post)=><EditPost id={post.id} key={post.id} avatar={data.image} name={data.name} title={post.title} comments={post.comments}/>)}
     </div>
   )
 }

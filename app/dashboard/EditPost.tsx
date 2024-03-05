@@ -19,17 +19,22 @@ type EditProps = {
 }
 
 export default function EditPost({avatar,name,title,comments,id}: EditProps){
-  let toastPostID: string
+  let deleteToastId: string
+  const queryClient = useQueryClient();
+
 
   //Toggle
   const [toggle, setToggle] = useState(false)
 
   //Delete Post
-  
+  const deletePost  = async ()=>{
+      mutation.mutate()
+  }
+
   const removePost = async ()=>{
     try {
+      deleteToastId = toast.loading(`Deleting your post ${deleteToastId}`)
       const response = await axios.delete("/api/posts/deletePost", {data: id})
-      console.log(response.data)
       return response
     } catch (error: any) {
       throw new Error(error.response.data.message)
@@ -38,22 +43,17 @@ export default function EditPost({avatar,name,title,comments,id}: EditProps){
   
   const mutation = useMutation({
   mutationFn: removePost,
-  onMutate(variables) {
-    toastPostID = toast.loading(`Creating your post`)
-  },
   onError(error, variables, context) {
     console.log('[ERROR]',error)
-    toast.error(error?.message, {id: toastPostID})
+    toast.error(error?.message, {id: deleteToastId})
   },
   onSuccess(data, variables, context) {
     console.log(data)
-    toast.success(`Post has been deleted`, {id: toastPostID})
-    // queryClient.invalidateQueries(["posts"])
+    toast.success(`Post has been deleted`, {id: deleteToastId})
+    queryClient.invalidateQueries(["auth-posts"])
   }
 })
-const deletePost  = ()=>{
-  mutation.mutate()
-}
+
     return(
       <>
       <div className="bg-white my-8 p-8 rounded-lg">
