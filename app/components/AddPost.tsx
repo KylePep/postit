@@ -53,7 +53,7 @@ const mutation = useMutation({
   return (
     <form onSubmit={submitPost} className="bg-white my-8 p-8 rounded-md">
       <div className="flex flex-col my-4">
-        <textarea onChange={(e) => setTitle(e.target.value)} name="title" value={title} placeholder="What's on your mind?" className="p-4 text-lg rounded-md my-2 bg-gray-200"></textarea>
+        <textarea onChange={(e) => setTitle(e.target.value)} name="title" value={title} placeholder="What's on your mind?" className="p-4 text-lg rounded-md my-2 bg-gray-300"></textarea>
       </div>
       <div className="flex items-center justify-between gap-2">
         <p className={`font-bold text-sm ${title.length > 300 ? "text-red-700" : "text-gray-700"}`}>{`${title.length}/300`}</p>
