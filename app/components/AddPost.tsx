@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { use, useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
 
@@ -9,20 +9,22 @@ export default function CreatePost(){
   const [isDisabled, setIsDisabled] = useState(false)
 
 // Create a post
-const mutationFunction = async ()=>{
+const createPost = async ()=>{
   const response = await axios.post("/api/posts/addPost", {title})
+  console.log(response.data)
   return response
 }
 
-const { mutate } = useMutation({mutationFn: mutationFunction});
-
+const mutation = useMutation({
+  mutationFn: createPost,}
+)
 
 
 const submitPost  = async (e: React.FormEvent)=> {
   console.log('top')
 e.preventDefault()
 setIsDisabled(true)
-mutate()
+mutation.mutate()
 console.log('bottom')
 }
 
