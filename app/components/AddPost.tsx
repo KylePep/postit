@@ -45,8 +45,7 @@ const mutation = useMutation({
     setTitle('')
     setIsDisabled(false)
   }
-}
-)
+})
 
 
 
