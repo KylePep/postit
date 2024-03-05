@@ -1,32 +1,54 @@
 'use client'
 
-import { use, useState } from "react"
+import { useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
+import toast from "react-hot-toast"
 
 export default function CreatePost(){
   const [title, setTitle] = useState("")
   const [isDisabled, setIsDisabled] = useState(false)
+  const queryClient = useQueryClient();
+  let toastPostID: string
+
+  const submitPost  = async (e: React.FormEvent)=> {
+    e.preventDefault()
+    setIsDisabled(true)
+    mutation.mutate()
+    }
 
 // Create a post
 const createPost = async ()=>{
-  const response = await axios.post("/api/posts/addPost", {title})
-  console.log(response.data)
-  return response
+  try {
+    const response = await axios.post("/api/posts/addPost", {title})
+    console.log(response.data)
+    return response
+  } catch (error: any) {
+    throw new Error(error.response.data.message)
+  }
 }
 
 const mutation = useMutation({
-  mutationFn: createPost,}
+  mutationFn: createPost,
+  onMutate(variables) {
+    toastPostID = toast.loading(`Creating your post ${toastPostID}`)
+  },
+  onError(error, variables, context) {
+    console.log('[ERROR]',error)
+    toast.error(error?.message + toastPostID, {id: toastPostID})
+    setIsDisabled(false)
+  },
+  onSuccess(data, variables, context) {
+    console.log(data)
+    toast.success(`Post has been made ${toastPostID}`, {id: toastPostID})
+    setTitle('')
+    setIsDisabled(false)
+  }
+}
 )
 
 
-const submitPost  = async (e: React.FormEvent)=> {
-  console.log('top')
-e.preventDefault()
-setIsDisabled(true)
-mutation.mutate()
-console.log('bottom')
-}
+
 
   return (
     <form onSubmit={submitPost} className="bg-white my-8 p-8 rounded-md">
