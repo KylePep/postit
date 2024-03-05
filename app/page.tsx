@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <main className="">
       <AddPost/>
-      {data?.map((post)=> (
+      {data?.map((post: any)=> (
         <Post key={post.id} name={post.user.name} avatar={post.user.image} postTitle={post.title} id={post.id}/>
       ))}
     </main>
