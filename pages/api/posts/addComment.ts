@@ -10,29 +10,32 @@ export default async function handler(
   if (req.method  === "POST"){
     console.log('[REQ, RES, NEXT]', req, res, authOptions)
     const session = await getServerSession(req ,res, authOptions)
-    if(!session) return res.status(401).json({message: "Please sign in to make a post"})
-
-    const title: string = req.body.title
+    if(!session) return res.status(401).json({message: "Please sign in"})
+    //Get user
     const prismaUser = await prisma.user.findUnique({
-      where: {email: session?.user?.email}
+      where: { email: session?.user?.email },
     })
 
-    //Check title
+    const title = req.body.title
+    const postId = req.body.postId
     if (title.length > 300) return res.status(403).json({message: "Please write a shorter message."})
-    if(!title.length)
-    return res.status(403).json({message: "Please do not leave this empty."})
-
-    // Create post
+    if (!title.length){
+      return res.status(403).json({message: "Please enter a comment"})
+    }
+    //Add a comment
     try {
-      const result = await prisma.post.create({
-        data: {
-          title,
+
+      const result = await prisma.comment.create({
+        data:{
+          message: title,
           userId: prismaUser?.id,
+          postId,
         }
       })
+
       res.status(200).json(result)
     } catch (error) {
-      res.status(403).json({err: 'Error has occurred whilst making a post.'})
+      res.status(403).json({err: 'Error has occurred whilst creating comment.'})
       
     }
   }
