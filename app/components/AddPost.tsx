@@ -41,6 +41,7 @@ const mutation = useMutation({
   onSuccess(data, variables, context) {
     console.log(data)
     toast.success(`Post has been made ${toastPostID}`, {id: toastPostID})
+    queryClient.invalidateQueries(["posts"])
     setTitle('')
     setIsDisabled(false)
   }
