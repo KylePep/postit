@@ -11,6 +11,11 @@ export default async function handler(
     console.log('[REQ, RES, NEXT]', req, res, authOptions)
     const session = await getServerSession(req ,res, authOptions)
     if(!session) return res.status(401).json({message: "Please sign in"})
+    
+      // Check if prismaUser exists and has a valid id
+      if (!session.user?.email ) {
+        return res.status(403).json({ message: "User not found or invalid user ID" })
+      }
     //Get user
     const prismaUser = await prisma.user.findUnique({
       where: { email: session?.user?.email },
@@ -22,6 +27,12 @@ export default async function handler(
     if (!title.length){
       return res.status(403).json({message: "Please enter a comment"})
     }
+
+      // Check if prismaUser exists and has a valid id
+      if (!prismaUser || !prismaUser.id) {
+        return res.status(403).json({ message: "User not found or invalid user ID" })
+      }
+
     //Add a comment
     try {
 

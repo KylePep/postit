@@ -12,6 +12,11 @@ export default async function handler(
     const session = await getServerSession(req ,res, authOptions)
     if(!session) return res.status(401).json({message: "Please sign in"})
 
+      // Check if prismaUser exists and has a valid id
+      if (!session.user?.email ) {
+        return res.status(403).json({ message: "User not found or invalid user ID" })
+      }
+
     // Get Auth Users Posts
     try {
       const data = await prisma.user.findUnique({
