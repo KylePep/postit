@@ -5,6 +5,7 @@ import Toggle from "./toggle"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 import axios from "axios"
+import Link from "next/link"
 
 type EditProps = {
   id: string
@@ -71,9 +72,9 @@ export default function EditPost({avatar,name,title,comments,id}: EditProps){
           <p className="break-all">{title}</p>
         </div>
         <div className="flex items-center gap-4">
-          <p className="text-sm font-bold text-gray-700">
-            {Comment?.length}
-          </p>
+        <Link href={`/post/${id}`}>
+          <p className="text-sm font-bold text-gray-700"> Comments</p>
+        </Link>
           <button onClick={(e) =>{setToggle(true)}} className="text-sm font-bold text-red-500">Delete</button>
         </div>
       </div>
