@@ -25,7 +25,7 @@ export default function AddComment({id} : PostProps){
 const createComment = async ()=>{
   try {
     const response = await axios.post("/api/posts/addComment", {title, postId: id})
-    console.log(response.data)
+    // console.log(response.data)
     return response
   } catch (error: any) {
     throw new Error(error.response.data.message)
