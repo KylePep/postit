@@ -21,7 +21,7 @@ export default function CreatePost(){
 const createPost = async ()=>{
   try {
     const response = await axios.post("/api/posts/addPost", {title})
-    console.log(response.data)
+    // console.log(response.data)
     return response
   } catch (error: any) {
     throw new Error(error.response.data.message)
