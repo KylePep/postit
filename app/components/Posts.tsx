@@ -7,7 +7,7 @@ interface PostProps{
   avatar: string;
   name: string;
   postTitle: string;
-  Comment: [];
+  Comment: [{}];
   id: string;
 }
 

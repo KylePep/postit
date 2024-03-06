@@ -8,11 +8,11 @@ export type PostType = {
     image: string
     name: string
   }
-  Comment: {
+  Comment: [{
     createdAt?: string
     id:string
     postId: string
-    title: string
+    message: string
     userId: string
     user:{
       email:string
@@ -20,5 +20,5 @@ export type PostType = {
       image: string
       name: string
     }
-  }[]
+  }]
 }

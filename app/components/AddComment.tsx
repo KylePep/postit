@@ -43,7 +43,7 @@ const mutation = useMutation({
   },
   onSuccess(data, variables, context) {
     toast.success(`Comment has been made `, {id: commentToastID})
-    queryClient.invalidateQueries(["comments"])
+    queryClient.invalidateQueries({queryKey: ["comments"]})
     setTitle('')
     setIsDisabled(false)
   }

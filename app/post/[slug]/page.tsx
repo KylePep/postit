@@ -20,14 +20,16 @@ const fetchDetails = async (slug: string) => {
 
 export default function PostDetail(url:URL){
   const {data, isLoading} = useQuery<PostType>({
-    queryKey: ['detail-post'],
+    queryKey: ['comments'],
     queryFn: ()=> fetchDetails(url.params.slug)
   })
   if(isLoading) return "Loading..."
   console.log('[COMMENT DATA]',data)
   return (
     <div>
-      <Post id={data.id} title={data.title} name={data.user.name} avatar={data.user.image} postTitle={data.title} comments={data.Comment} />
+      {data && (
+        <Post id={data.id} name={data.user.name} avatar={data.user.image} postTitle={data.title} Comment={data.Comment} />
+      )}
       <AddComment id={data?.id}/>
       {data?.Comment?.map((comment) => (
         <div key={comment.id} className="my-6 bg-white p-8 rounded-md">
