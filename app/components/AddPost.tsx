@@ -31,16 +31,16 @@ const createPost = async ()=>{
 const mutation = useMutation({
   mutationFn: createPost,
   onMutate(variables) {
-    toastPostID = toast.loading(`Creating your post ${toastPostID}`)
+    toastPostID = toast.loading(`Creating your post `)
   },
   onError(error, variables, context) {
     console.log('[ERROR]',error)
-    toast.error(error?.message + toastPostID, {id: toastPostID})
+    toast.error(error?.message, {id: toastPostID})
     setIsDisabled(false)
   },
   onSuccess(data, variables, context) {
     console.log(data)
-    toast.success(`Post has been made ${toastPostID}`, {id: toastPostID})
+    toast.success(`Post has been made `, {id: toastPostID})
     queryClient.invalidateQueries(  {
       queryKey: ['posts'],
     })
