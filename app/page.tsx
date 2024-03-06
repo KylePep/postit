@@ -15,7 +15,7 @@ export default function Home() {
   const {data, error, isLoading} = useQuery<PostType[]>({queryFn: allPosts, queryKey: ["posts"]})
   if (error) return error
   if(isLoading) return "Loading..."
-  console.log(data)
+  // console.log(data)
   return (
     <main className="">
       <AddPost/>
